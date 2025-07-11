@@ -55,13 +55,26 @@
             app:cardElevation="4dp"
             app:strokeColor="@color/purple_700"
             app:strokeWidth="1dp">
-            <RadioButton
-                android:id="@+id/option1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                tools:text="Option 1"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+                <RadioButton
+                    android:id="@+id/option1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/option1_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:paddingStart="4dp"
+                    tools:text="Option 1"/>
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -75,13 +88,26 @@
             app:cardElevation="4dp"
             app:strokeColor="@color/purple_700"
             app:strokeWidth="1dp">
-            <RadioButton
-                android:id="@+id/option2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                tools:text="Option 2"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+                <RadioButton
+                    android:id="@+id/option2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/option2_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:paddingStart="4dp"
+                    tools:text="Option 2"/>
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -95,13 +121,26 @@
             app:cardElevation="4dp"
             app:strokeColor="@color/purple_700"
             app:strokeWidth="1dp">
-            <RadioButton
-                android:id="@+id/option3"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                tools:text="Option 3"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+                <RadioButton
+                    android:id="@+id/option3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/option3_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:paddingStart="4dp"
+                    tools:text="Option 3"/>
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -115,13 +154,26 @@
             app:cardElevation="4dp"
             app:strokeColor="@color/purple_700"
             app:strokeWidth="1dp">
-            <RadioButton
-                android:id="@+id/option4"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="12dp"
-                tools:text="Option 4"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+                <RadioButton
+                    android:id="@+id/option4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/option4_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:paddingStart="4dp"
+                    tools:text="Option 4"/>
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </RadioGroup>
 
@@ -143,6 +195,10 @@
             android:layout_weight="1"
             android:textSize="14sp"
             android:visibility="gone"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             tools:text="Placeholder Description"/>
     </LinearLayout>
 
