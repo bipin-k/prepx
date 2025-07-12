@@ -2,13 +2,19 @@ package `in`.co.prepx
 
 import android.app.AlertDialog
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import com.google.android.material.button.MaterialButton
@@ -17,6 +23,7 @@ class MCQActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setImmersiveMode()
 
         val questionText = findViewById<MaterialTextView>(R.id.question_text)
         val option1 = findViewById<RadioButton>(R.id.option1)
@@ -75,10 +82,13 @@ class MCQActivity : AppCompatActivity() {
         )
 
         fun resetOptionBackgroundsAndTints() {
+            val optionTexts = listOf(option1Text, option2Text, option3Text, option4Text)
             for ((i, option) in listOf(option1, option2, option3, option4).withIndex()) {
                 val layout = optionLayouts[i]
+                val optionText = optionTexts[i]
                 layout.setBackgroundColor(defaultBg)
                 option.buttonTintList = defaultTint
+                optionText.setTextColor(ContextCompat.getColor(this, R.color.grey))
             }
         }
 
@@ -136,9 +146,11 @@ class MCQActivity : AppCompatActivity() {
 
         fun setOptionListeners() {
             val options = listOf(option1, option2, option3, option4)
+            val optionTexts = listOf(option1Text, option2Text, option3Text, option4Text)
             for ((i, option) in options.withIndex()) {
                 val layout = optionLayouts[i]
                 val card = cards[i]
+                val optionText = optionTexts[i]
                 val clickListener = View.OnClickListener {
                     resetOptionBackgroundsAndTints()
                     resetCardElevations()
@@ -147,9 +159,11 @@ class MCQActivity : AppCompatActivity() {
                     if (option == correctOption) {
                         layout.setBackgroundColor(lightGreen)
                         option.buttonTintList = ColorStateList.valueOf(darkGreen)
+                        optionText.setTextColor(ContextCompat.getColor(this, android.R.color.black))
                     } else {
                         layout.setBackgroundColor(lightRed)
                         option.buttonTintList = ColorStateList.valueOf(darkRed)
+                        optionText.setTextColor(ContextCompat.getColor(this, android.R.color.black))
                         // Vibrate on incorrect answer
                         val v = getSystemService(android.content.Context.VIBRATOR_SERVICE) as android.os.Vibrator
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -187,6 +201,31 @@ class MCQActivity : AppCompatActivity() {
                 .setPositiveButton("Yes") { _, _ -> finish() }
                 .setNegativeButton("No", null)
                 .show()
+        }
+    }
+
+    private fun setImmersiveMode() {
+        // Enable edge-to-edge
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+ (API 30+)
+            window.setDecorFitsSystemWindows(false)
+            window.insetsController?.let { controller ->
+                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            // Android 10 and below
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            )
         }
     }
 } 
