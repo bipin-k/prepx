@@ -10,6 +10,7 @@ import android.view.WindowInsetsController
 import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
@@ -24,6 +25,20 @@ class MCQActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setImmersiveMode()
+        
+        // Set up toolbar menu
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
+        setSupportActionBar(toolbar)
+        
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_report_question -> {
+                    showReportQuestionDialog()
+                    true
+                }
+                else -> false
+            }
+        }
 
         val questionText = findViewById<MaterialTextView>(R.id.question_text)
         val option1 = findViewById<RadioButton>(R.id.option1)
@@ -47,8 +62,8 @@ class MCQActivity : AppCompatActivity() {
 
         val questions = listOf(
             Question(
-                "What is the capital city of France?",
-                listOf("Paris", "London", "Berlin", "Madrid"),
+                "What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France? What is the capital city of France?",
+                listOf("Paris Paris Paris Paris Paris Paris Paris Paris Paris Paris Paris", "London", "Berlin", "Madrid"),
                 0,
                 "This question tests your knowledge of European capitals. France is a country in Western Europe, and its capital is a major cultural and economic center."
             ),
@@ -97,6 +112,12 @@ class MCQActivity : AppCompatActivity() {
             fadeIn.duration = 400
             descriptionText.startAnimation(fadeIn)
             descriptionText.visibility = View.VISIBLE
+            
+            // Scroll to bottom buttons after a short delay to ensure description is visible
+            val scrollView = findViewById<android.widget.ScrollView>(R.id.main_scroll_view)
+            scrollView.postDelayed({
+                scrollView.smoothScrollTo(0, scrollView.getChildAt(0).height)
+            }, 500)
         }
 
         fun resetCardElevations() {
@@ -202,6 +223,78 @@ class MCQActivity : AppCompatActivity() {
                 .setNegativeButton("No", null)
                 .show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: android.view.Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    private fun showReportQuestionDialog() {
+        val dialog = AlertDialog.Builder(this).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_report_question, null)
+        dialog.setView(dialogView)
+        
+        val radioGroup = dialogView.findViewById<RadioGroup>(R.id.report_options_group)
+        val othersInputContainer = dialogView.findViewById<View>(R.id.others_input_container)
+        val othersReasonInput = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.others_reason_input)
+        
+        // Add character limit enforcement
+        othersReasonInput.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            
+            override fun afterTextChanged(s: android.text.Editable?) {
+                if (s != null && s.length > 100) {
+                    // Remove characters beyond the 100 character limit
+                    othersReasonInput.setText(s.subSequence(0, 100))
+                    othersReasonInput.setSelection(100)
+                }
+            }
+        })
+        
+        // Handle radio button selection
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.option_others) {
+                othersInputContainer.visibility = View.VISIBLE
+            } else {
+                othersInputContainer.visibility = View.GONE
+            }
+        }
+        
+        dialog.setTitle("Report Question")
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Report") { _, _ ->
+            val selectedId = radioGroup.checkedRadioButtonId
+            val selectedReason = when (selectedId) {
+                R.id.option_incorrect_text -> "Incorrect Question Text"
+                R.id.option_incorrect_options -> "Incorrect Options"
+                R.id.option_wrong_answer -> "Wrong Answer"
+                R.id.option_others -> {
+                    val othersText = othersReasonInput.text.toString().trim()
+                    if (othersText.isEmpty()) {
+                        "Others"
+                    } else {
+                        "Others: $othersText"
+                    }
+                }
+                else -> "Others"
+            }
+            
+            // Handle the report - you can add your reporting logic here
+            // For now, just show a confirmation
+            AlertDialog.Builder(this)
+                .setTitle("Question Reported")
+                .setMessage("Thank you for your feedback. We will review this question.")
+                .setPositiveButton("OK", null)
+                .show()
+        }
+        
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { _, _ ->
+            dialog.dismiss()
+        }
+        
+        dialog.show()
     }
 
     private fun setImmersiveMode() {

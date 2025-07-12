@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select the reason for reporting this question:"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/report_options_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/option_incorrect_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Incorrect Question Text"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/option_incorrect_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Incorrect Options"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/option_wrong_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wrong Answer"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/option_others"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Others"
+            android:padding="8dp"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/others_input_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please specify the reason"
+            app:counterEnabled="true"
+            app:counterMaxLength="100">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/others_reason_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="3"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</LinearLayout> 
