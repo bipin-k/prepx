@@ -26,7 +26,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_buttons_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -219,40 +219,43 @@
                     tools:text="Placeholder Description"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/bottom_buttons_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_exit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Exit"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:textColor="@color/dark_red"
-                    app:strokeColor="@color/dark_red"
-                    app:strokeWidth="2dp"
-                    android:backgroundTint="@color/white"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_next"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Next"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/purple_700"/>
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Exit"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textColor="@color/dark_red"
+            app:strokeColor="@color/dark_red"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/white"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next"
+            style="@style/Widget.MaterialComponents.Button"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple_700"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

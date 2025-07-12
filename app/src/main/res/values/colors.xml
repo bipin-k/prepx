@@ -43,4 +43,14 @@
     <color name="md_theme_light_surfaceTint">#6750A4</color>
     <color name="md_theme_light_outlineVariant">#CAC4D0</color>
     <color name="md_theme_light_scrim">#000000</color>
+    
+    <!-- Subject Colors -->
+    <color name="history_color">#8E24AA</color>
+    <color name="geography_color">#1976D2</color>
+    <color name="polity_color">#388E3C</color>
+    <color name="mathematics_color">#F57C00</color>
+    <color name="science_color">#D32F2F</color>
+    <color name="background_color">#F5F5F5</color>
+    <color name="primary_color">#6750A4</color>
+    <color name="text_primary">#1C1B1F</color>
 </resources>
