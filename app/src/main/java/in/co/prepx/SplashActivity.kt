@@ -14,6 +14,6 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, SubjectSelectionActivity::class.java))
             finish()
-        }, 10000) // 10 seconds
+        }, 5000) // 10 seconds
     }
-} 
+}

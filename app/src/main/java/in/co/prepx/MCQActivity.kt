@@ -8,38 +8,37 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.animation.AlphaAnimation
-import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
-import com.google.android.material.button.MaterialButton
 
 class MCQActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setImmersiveMode()
-        
+
         // Get the subject from intent
         val subject = intent.getStringExtra("subject") ?: "General"
-        
+
         // Set up toolbar menu
-        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
+        val toolbar =
+            findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
         toolbar.title = "$subject Quiz"
-        
+
         toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_report_question -> {
                     showReportQuestionDialog()
                     true
                 }
+
                 else -> false
             }
         }
@@ -80,11 +79,17 @@ class MCQActivity : AppCompatActivity() {
                 ),
                 Question(
                     "Who was known as the 'Father of the Nation' in India?",
-                    listOf("Jawaharlal Nehru", "Mahatma Gandhi", "Subhas Chandra Bose", "Sardar Patel"),
+                    listOf(
+                        "Jawaharlal Nehru",
+                        "Mahatma Gandhi",
+                        "Subhas Chandra Bose",
+                        "Sardar Patel"
+                    ),
                     1,
                     "Mahatma Gandhi is known as the 'Father of the Nation' in India."
                 )
             )
+
             "Geography" -> listOf(
                 Question(
                     "What is the capital of India?",
@@ -105,6 +110,7 @@ class MCQActivity : AppCompatActivity() {
                     "The Himalayas run along the northern border of India."
                 )
             )
+
             "Polity" -> listOf(
                 Question(
                     "How many fundamental rights are guaranteed by the Indian Constitution?",
@@ -125,6 +131,7 @@ class MCQActivity : AppCompatActivity() {
                     "The Indian Constitution was adopted on November 26, 1949."
                 )
             )
+
             "Mathematics" -> listOf(
                 Question(
                     "What is the value of π (pi) to two decimal places?",
@@ -145,6 +152,7 @@ class MCQActivity : AppCompatActivity() {
                     "15% of 200 = (15/100) × 200 = 30."
                 )
             )
+
             "Science" -> listOf(
                 Question(
                     "What is the chemical symbol for gold?",
@@ -165,6 +173,7 @@ class MCQActivity : AppCompatActivity() {
                     "Diamond is the hardest natural substance on Earth."
                 )
             )
+
             else -> listOf(
                 Question(
                     "What is the capital city of France?",
@@ -218,7 +227,7 @@ class MCQActivity : AppCompatActivity() {
             fadeIn.duration = 400
             descriptionText.startAnimation(fadeIn)
             descriptionText.visibility = View.VISIBLE
-            
+
             // Scroll to bottom buttons after a short delay to ensure description is visible
             val scrollView = findViewById<android.widget.ScrollView>(R.id.main_scroll_view)
             scrollView.postDelayed({
@@ -292,9 +301,15 @@ class MCQActivity : AppCompatActivity() {
                         option.buttonTintList = ColorStateList.valueOf(darkRed)
                         optionText.setTextColor(ContextCompat.getColor(this, android.R.color.black))
                         // Vibrate on incorrect answer
-                        val v = getSystemService(android.content.Context.VIBRATOR_SERVICE) as android.os.Vibrator
+                        val v =
+                            getSystemService(android.content.Context.VIBRATOR_SERVICE) as android.os.Vibrator
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            v.vibrate(android.os.VibrationEffect.createOneShot(200, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
+                            v.vibrate(
+                                android.os.VibrationEffect.createOneShot(
+                                    200,
+                                    android.os.VibrationEffect.DEFAULT_AMPLITUDE
+                                )
+                            )
                         } else {
                             @Suppress("DEPRECATION")
                             v.vibrate(200)
@@ -340,17 +355,18 @@ class MCQActivity : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_report_question, null)
         dialog.setView(dialogView)
-        
+
         val radioGroup = dialogView.findViewById<RadioGroup>(R.id.report_options_group)
         val othersInputContainer = dialogView.findViewById<View>(R.id.others_input_container)
-        val othersReasonInput = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.others_reason_input)
-        
+        val othersReasonInput =
+            dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.others_reason_input)
+
         // Add character limit enforcement
         othersReasonInput.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            
+
             override fun afterTextChanged(s: android.text.Editable?) {
                 if (s != null && s.length > 100) {
                     // Remove characters beyond the 100 character limit
@@ -359,7 +375,7 @@ class MCQActivity : AppCompatActivity() {
                 }
             }
         })
-        
+
         // Handle radio button selection
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.option_others) {
@@ -368,7 +384,7 @@ class MCQActivity : AppCompatActivity() {
                 othersInputContainer.visibility = View.GONE
             }
         }
-        
+
         dialog.setTitle("Report Question")
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Report") { _, _ ->
             val selectedId = radioGroup.checkedRadioButtonId
@@ -384,9 +400,10 @@ class MCQActivity : AppCompatActivity() {
                         "Others: $othersText"
                     }
                 }
+
                 else -> "Others"
             }
-            
+
             // Handle the report - you can add your reporting logic here
             // For now, just show a confirmation
             AlertDialog.Builder(this)
@@ -395,36 +412,37 @@ class MCQActivity : AppCompatActivity() {
                 .setPositiveButton("OK", null)
                 .show()
         }
-        
+
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { _, _ ->
             dialog.dismiss()
         }
-        
+
         dialog.show()
     }
 
     private fun setImmersiveMode() {
         // Enable edge-to-edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Android 11+ (API 30+)
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.let { controller ->
                 controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
             // Android 10 and below
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            )
+                    View.SYSTEM_UI_FLAG_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    )
         }
     }
-} 
+}
