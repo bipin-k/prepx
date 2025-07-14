@@ -100,10 +100,16 @@ class MCQActivity : AppCompatActivity() {
                 currentQuestion++
                 loadQuestion(currentQuestion)
             } else {
-                // Quiz finished, navigate to ReviewActivity
-                val intent = Intent(this, ReviewActivity::class.java)
-                intent.putExtra("questions", ArrayList(questions))
-                intent.putExtra("selectedOptions", selectedOptions)
+                // Quiz finished, navigate to ScoreActivity
+                val intent = Intent(this, ScoreActivity::class.java)
+                intent.putExtra("totalQuestions", questions.size)
+                var correctAnswers = 0
+                for (i in questions.indices) {
+                    if (selectedOptions.size > i && selectedOptions[i] == questions[i].correctIndex) {
+                        correctAnswers++
+                    }
+                }
+                intent.putExtra("correctAnswers", correctAnswers)
                 startActivity(intent)
                 finish()
             }
