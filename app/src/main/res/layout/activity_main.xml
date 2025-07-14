@@ -2,19 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:title="PrepX"
-        app:titleTextColor="@color/md_theme_light_onPrimary"
-        android:background="?attr/colorPrimary"
-        android:layout_marginTop="24dp"
+        app:titleTextColor="@color/white"
+        android:background="@color/primary"
+        android:paddingTop="?attr/actionBarSize"
+        android:layout_marginTop="0dp"
         app:menu="@menu/toolbar_menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,51 +39,46 @@
             android:padding="16dp">
 
             <!-- Question Text -->
-            <ScrollView
-                android:id="@+id/question_scroll_view"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
-                android:maxHeight="200dp"
-                android:fillViewport="true">
-                
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/surface"
+                android:layout_marginBottom="24dp">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/question_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_primary"
+                    android:padding="16dp"
                     tools:text="Placeholder Question" />
-            </ScrollView>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- RadioGroup for MCQ Options -->
             <RadioGroup
                 android:id="@+id/radio_group_options"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    card_view:cardCornerRadius="12dp"
-                    card_view:cardElevation="4dp"
-                    app:strokeColor="@color/purple_700"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/primary"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp">
+                        android:padding="12dp">
                         <RadioButton
                             android:id="@+id/option1"
                             android:layout_width="wrap_content"
@@ -91,8 +88,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="16sp"
-                            android:paddingStart="4dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_secondary"
                             tools:text="Option 1"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -102,19 +99,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    card_view:cardCornerRadius="12dp"
-                    card_view:cardElevation="4dp"
-                    app:strokeColor="@color/purple_700"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/primary"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp">
+                        android:padding="12dp">
                         <RadioButton
                             android:id="@+id/option2"
                             android:layout_width="wrap_content"
@@ -124,8 +118,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="16sp"
-                            android:paddingStart="4dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_secondary"
                             tools:text="Option 2"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -135,19 +129,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    card_view:cardCornerRadius="12dp"
-                    card_view:cardElevation="4dp"
-                    app:strokeColor="@color/purple_700"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/primary"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp">
+                        android:padding="12dp">
                         <RadioButton
                             android:id="@+id/option3"
                             android:layout_width="wrap_content"
@@ -157,8 +148,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="16sp"
-                            android:paddingStart="4dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_secondary"
                             tools:text="Option 3"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -168,19 +159,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    card_view:cardCornerRadius="12dp"
-                    card_view:cardElevation="4dp"
-                    app:strokeColor="@color/purple_700"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/primary"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp">
+                        android:padding="12dp">
                         <RadioButton
                             android:id="@+id/option4"
                             android:layout_width="wrap_content"
@@ -190,34 +178,34 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="16sp"
-                            android:paddingStart="4dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_secondary"
                             tools:text="Option 4"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </RadioGroup>
 
             <!-- Collapsible Description Section -->
-            <LinearLayout
-                android:id="@+id/description_container"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/description_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/surface"
+                android:layout_marginTop="24dp"
+                android:visibility="gone">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/description_text"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary"
+                    android:padding="16dp"
                     tools:text="Placeholder Description"/>
-            </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
@@ -229,8 +217,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -242,10 +229,10 @@
             android:layout_weight="1"
             android:text="Exit"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:textColor="@color/dark_red"
-            app:strokeColor="@color/dark_red"
+            android:textColor="@color/error"
+            app:strokeColor="@color/error"
             app:strokeWidth="2dp"
-            android:backgroundTint="@color/white"/>
+            android:layout_marginEnd="8dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_next"
@@ -255,7 +242,8 @@
             android:text="Next"
             style="@style/Widget.MaterialComponents.Button"
             android:textColor="@color/white"
-            android:backgroundTint="@color/purple_700"/>
+            android:backgroundTint="@color/primary"
+            android:layout_marginStart="8dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

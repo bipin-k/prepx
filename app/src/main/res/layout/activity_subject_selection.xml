@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_color">
+        android:background="@color/primary">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -16,6 +17,8 @@
             android:layout_height="?attr/actionBarSize"
             app:title="Select Subject"
             app:titleTextColor="@color/white"
+            android:paddingTop="?attr/actionBarSize"
+            android:layout_marginTop="0dp"
             app:menu="@menu/toolbar_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,8 +37,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose a subject to start your quiz:"
-                android:textSize="18sp"
+                android:text="Choose a subject to start your quiz"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
                 android:layout_marginBottom="24dp"
                 android:gravity="center" />
@@ -52,10 +55,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/history_card"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardBackgroundColor="@color/history_color"
                     android:clickable="true"
                     android:focusable="true"
@@ -69,19 +72,19 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:src="@drawable/ic_history"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="History"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="12dp" />
 
                     </LinearLayout>
 
@@ -91,10 +94,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/geography_card"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardBackgroundColor="@color/geography_color"
                     android:clickable="true"
                     android:focusable="true"
@@ -108,19 +111,19 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:src="@drawable/ic_geography"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Geography"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="12dp" />
 
                     </LinearLayout>
 
@@ -130,10 +133,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/polity_card"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardBackgroundColor="@color/polity_color"
                     android:clickable="true"
                     android:focusable="true"
@@ -147,19 +150,19 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:src="@drawable/ic_polity"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Polity"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="12dp" />
 
                     </LinearLayout>
 
@@ -169,10 +172,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/mathematics_card"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardBackgroundColor="@color/mathematics_color"
                     android:clickable="true"
                     android:focusable="true"
@@ -186,19 +189,19 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:src="@drawable/ic_mathematics"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Mathematics"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="12dp" />
 
                     </LinearLayout>
 
@@ -208,11 +211,11 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/science_card"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="150dp"
                     android:layout_columnWeight="1"
                     android:layout_columnSpan="2"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardBackgroundColor="@color/science_color"
                     android:clickable="true"
                     android:focusable="true"
@@ -226,19 +229,19 @@
                         android:padding="16dp">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:src="@drawable/ic_science"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Science"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:layout_marginTop="8dp" />
+                            android:layout_marginTop="12dp" />
 
                     </LinearLayout>
 
@@ -250,4 +253,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout> 
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,11 +1,7 @@
 package `in`.co.prepx
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.google.android.material.card.MaterialCardView
@@ -22,30 +18,18 @@ class SubjectSelectionActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Set up subject card click listeners
-        val historyCard = findViewById<MaterialCardView>(R.id.history_card)
-        val geographyCard = findViewById<MaterialCardView>(R.id.geography_card)
-        val polityCard = findViewById<MaterialCardView>(R.id.polity_card)
-        val mathematicsCard = findViewById<MaterialCardView>(R.id.mathematics_card)
-        val scienceCard = findViewById<MaterialCardView>(R.id.science_card)
+        val subjectMap = mapOf(
+            R.id.history_card to "History",
+            R.id.geography_card to "Geography",
+            R.id.polity_card to "Polity",
+            R.id.mathematics_card to "Mathematics",
+            R.id.science_card to "Science"
+        )
 
-        historyCard.setOnClickListener {
-            startMCQActivity("History")
-        }
-
-        geographyCard.setOnClickListener {
-            startMCQActivity("Geography")
-        }
-
-        polityCard.setOnClickListener {
-            startMCQActivity("Polity")
-        }
-
-        mathematicsCard.setOnClickListener {
-            startMCQActivity("Mathematics")
-        }
-
-        scienceCard.setOnClickListener {
-            startMCQActivity("Science")
+        for ((cardId, subject) in subjectMap) {
+            findViewById<MaterialCardView>(cardId).setOnClickListener {
+                startMCQActivity(subject)
+            }
         }
     }
 
@@ -59,25 +43,7 @@ class SubjectSelectionActivity : AppCompatActivity() {
         // Enable edge-to-edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11+ (API 30+)
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.let { controller ->
-                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior =
-                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        } else {
-            // Android 10 and below
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    )
-        }
+        // No longer hiding status/navigation bars to keep them visible
+        // WindowCompat.setDecorFitsSystemWindows(window, false) is sufficient for edge-to-edge without hiding bars
     }
 }
