@@ -36,7 +36,8 @@ class ScoreActivity : AppCompatActivity() {
         topicNameText.text = "Topic: $topicName"
 
         restartButton.setOnClickListener {
-            val intent = Intent(this, SubjectSelectionActivity::class.java)
+            val intent = Intent(this, MCQActivity::class.java)
+            intent.putExtra("subject", topicName)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()

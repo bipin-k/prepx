@@ -37,6 +37,8 @@ class MCQActivity : AppCompatActivity() {
     private var currentQuestion = 0
     private lateinit var questions: List<Question>
     private val selectedOptions = ArrayList<Int>()
+    private val handler = android.os.Handler(android.os.Looper.getMainLooper())
+    private lateinit var subject: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,7 @@ class MCQActivity : AppCompatActivity() {
         setImmersiveMode()
 
         // Get the subject from intent
-        val subject = intent.getStringExtra("subject") ?: "General"
+        subject = intent.getStringExtra("subject") ?: "General"
         questions = QuestionBank.getQuestions(subject)
 
         // Set up toolbar menu
@@ -96,6 +98,7 @@ class MCQActivity : AppCompatActivity() {
         loadQuestion(currentQuestion)
 
         btnNext.setOnClickListener {
+            handler.removeCallbacksAndMessages(null) // Cancel any pending delayed actions
             if (currentQuestion < questions.size - 1) {
                 currentQuestion++
                 loadQuestion(currentQuestion)
@@ -226,6 +229,28 @@ class MCQActivity : AppCompatActivity() {
                 } else {
                     selectedOptions[currentQuestion] = selectedOptionIndex
                 }
+
+                // Load next question after 5 seconds
+                handler.postDelayed({
+                    if (currentQuestion < questions.size - 1) {
+                        currentQuestion++
+                        loadQuestion(currentQuestion)
+                    } else {
+                        // Quiz finished, navigate to ScoreActivity
+                        val intent = Intent(this@MCQActivity, ScoreActivity::class.java)
+                        intent.putExtra("totalQuestions", questions.size)
+                        var correctAnswers = 0
+                        for (i in questions.indices) {
+                            if (selectedOptions.size > i && selectedOptions[i] == questions[i].correctIndex) {
+                                correctAnswers++
+                            }
+                        }
+                        intent.putExtra("correctAnswers", correctAnswers)
+                        intent.putExtra("topicName", subject)
+                        startActivity(intent)
+                        finish()
+                    }
+                }, 5000) // 5000 milliseconds = 5 seconds
             }
             option.setOnClickListener(clickListener)
             (option.parent as View).setOnClickListener { option.performClick() }
@@ -347,11 +372,13 @@ class MCQActivity : AppCompatActivity() {
 
             // Handle the report - you can add your reporting logic here
             // For now, just show a confirmation
-            AlertDialog.Builder(this)
+            val confirmationDialog = AlertDialog.Builder(this, R.style.AlertDialogTheme)
                 .setTitle("Question Reported")
                 .setMessage("Thank you for your feedback. We will review this question.")
-                .setPositiveButton("OK", null)
+                .setPositiveButton("OK") { _, _ -> }
                 .show()
+
+            confirmationDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
         }
         dialog.show()
 
