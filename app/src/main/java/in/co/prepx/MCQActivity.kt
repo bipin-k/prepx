@@ -184,6 +184,7 @@ class MCQActivity : AppCompatActivity() {
         resetOptionBackgroundsAndTints()
         resetCardElevations()
         setOptionsEnabled(true)
+        btnNext.isEnabled = true // Enable Next button when a new question is loaded
         // Uncheck all options
         option1.isChecked = false
         option2.isChecked = false
@@ -210,6 +211,7 @@ class MCQActivity : AppCompatActivity() {
 
                 // Disable all options to prevent multiple clicks
                 setOptionsEnabled(false)
+                btnNext.isEnabled = true // Enable Next button immediately
 
                 // Provide visual feedback
                 updateOptionAppearance(selectedOption, isCorrect)
@@ -352,35 +354,48 @@ class MCQActivity : AppCompatActivity() {
         }
 
 
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Report") { _, _ ->
-            val selectedId = radioGroup.checkedRadioButtonId
-            val selectedReason = when (selectedId) {
-                R.id.option_incorrect_text -> "Incorrect Question Text"
-                R.id.option_incorrect_options -> "Incorrect Options"
-                R.id.option_wrong_answer -> "Wrong Answer"
-                R.id.option_others -> {
-                    val othersText = othersReasonInput.text.toString().trim()
-                    if (othersText.isEmpty()) {
-                        "Others"
-                    } else {
-                        "Others: $othersText"
-                    }
-                }
-
-                else -> "Others"
-            }
-
-            // Handle the report - you can add your reporting logic here
-            // For now, just show a confirmation
-            val confirmationDialog = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-                .setTitle("Question Reported")
-                .setMessage("Thank you for your feedback. We will review this question.")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
-
-            confirmationDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Report", null as android.content.DialogInterface.OnClickListener?) // Set null listener initially
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { dialogInterface, _ ->
+            dialogInterface.dismiss()
         }
         dialog.show()
+
+        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveButton.setOnClickListener {
+            val selectedId = radioGroup.checkedRadioButtonId
+
+            if (selectedId == -1) {
+                // No option selected, show a toast
+                android.widget.Toast.makeText(this, "Please select a reason to report.", android.widget.Toast.LENGTH_SHORT).show()
+            } else {
+                val selectedReason = when (selectedId) {
+                    R.id.option_incorrect_text -> "Incorrect Question Text"
+                    R.id.option_incorrect_options -> "Incorrect Options"
+                    R.id.option_wrong_answer -> "Wrong Answer"
+                    R.id.option_others -> {
+                        val othersText = othersReasonInput.text.toString().trim()
+                        if (othersText.isEmpty()) {
+                            "Others"
+                        } else {
+                            "Others: $othersText"
+                        }
+                    }
+
+                    else -> "Others"
+                }
+
+                // Handle the report - you can add your reporting logic here
+                // For now, just show a confirmation
+                val confirmationDialog = AlertDialog.Builder(this, R.style.AlertDialogTheme)
+                    .setTitle("Question Reported")
+                    .setMessage("Thank you for your feedback. We will review this question.")
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+
+                confirmationDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
+                dialog.dismiss() // Dismiss the report dialog only if an option is selected
+            }
+        }
 
         // Set button text colors after the dialog is shown
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
