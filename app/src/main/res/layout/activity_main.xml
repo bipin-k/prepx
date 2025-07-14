@@ -15,7 +15,6 @@
         app:title="PrepX"
         app:titleTextColor="@color/white"
         android:background="@color/primary"
-        android:paddingTop="?attr/actionBarSize"
         android:layout_marginTop="0dp"
         app:menu="@menu/toolbar_menu"
         app:layout_constraintTop_toTopOf="parent"

@@ -17,7 +17,6 @@
             android:layout_height="?attr/actionBarSize"
             app:title="Select Subject"
             app:titleTextColor="@color/white"
-            android:paddingTop="?attr/actionBarSize"
             android:layout_marginTop="0dp"
             app:menu="@menu/toolbar_menu" />
 
