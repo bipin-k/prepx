@@ -30,6 +30,7 @@ class MCQActivity : AppCompatActivity() {
     private lateinit var btnNext: MaterialButton
     private lateinit var btnExit: MaterialButton
     private lateinit var descriptionText: MaterialTextView
+    private lateinit var descriptionCard: MaterialCardView
     private lateinit var cards: List<MaterialCardView>
     private lateinit var optionLayouts: List<View>
 
@@ -76,6 +77,7 @@ class MCQActivity : AppCompatActivity() {
         btnNext = findViewById(R.id.btn_next)
         btnExit = findViewById(R.id.btn_exit)
         descriptionText = findViewById(R.id.description_text)
+        descriptionCard = findViewById(R.id.description_card)
 
         val card1 = option1.parent.parent as MaterialCardView
         val card2 = option2.parent.parent as MaterialCardView
@@ -134,8 +136,8 @@ class MCQActivity : AppCompatActivity() {
     private fun animateDescriptionFadeIn() {
         val fadeIn = AlphaAnimation(0f, 1f)
         fadeIn.duration = 400
-        descriptionText.startAnimation(fadeIn)
-        descriptionText.visibility = View.VISIBLE
+        descriptionCard.startAnimation(fadeIn)
+        descriptionCard.visibility = View.VISIBLE
 
         // Scroll to bottom buttons after a short delay to ensure description is visible
         val scrollView = findViewById<android.widget.ScrollView>(R.id.main_scroll_view)
@@ -168,7 +170,7 @@ class MCQActivity : AppCompatActivity() {
         option3Text.text = q.options[2]
         option4Text.text = q.options[3]
         descriptionText.text = q.description
-        descriptionText.visibility = View.GONE // Hide description initially
+        descriptionCard.visibility = View.GONE // Hide description initially
         resetOptionBackgroundsAndTints()
         resetCardElevations()
         setOptionsEnabled(true)
