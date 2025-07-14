@@ -24,13 +24,16 @@ class ScoreActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val scoreText = findViewById<MaterialTextView>(R.id.score_text)
+        val topicNameText = findViewById<MaterialTextView>(R.id.topic_name_text)
         val restartButton = findViewById<MaterialButton>(R.id.restart_button)
         val shareButton = findViewById<MaterialButton>(R.id.share_button)
 
         val totalQuestions = intent.getIntExtra("totalQuestions", 0)
         val correctAnswers = intent.getIntExtra("correctAnswers", 0)
+        val topicName = intent.getStringExtra("topicName")
 
         scoreText.text = "You scored $correctAnswers out of $totalQuestions"
+        topicNameText.text = "Topic: $topicName"
 
         restartButton.setOnClickListener {
             val intent = Intent(this, SubjectSelectionActivity::class.java)
@@ -40,10 +43,15 @@ class ScoreActivity : AppCompatActivity() {
         }
 
         shareButton.setOnClickListener {
+            val appBarLayout = findViewById<com.google.android.material.appbar.AppBarLayout>(R.id.appBarLayout)
+            appBarLayout.visibility = View.GONE // Hide AppBarLayout before taking screenshot
+
             val rootView = window.decorView.rootView
             val bitmap = takeScreenshot(rootView)
             val uri = saveBitmap(bitmap)
             shareScreenshot(uri)
+
+            appBarLayout.visibility = View.VISIBLE // Show AppBarLayout again after sharing
         }
     }
 

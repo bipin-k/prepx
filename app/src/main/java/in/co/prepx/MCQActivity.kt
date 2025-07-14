@@ -110,6 +110,7 @@ class MCQActivity : AppCompatActivity() {
                     }
                 }
                 intent.putExtra("correctAnswers", correctAnswers)
+                intent.putExtra("topicName", subject)
                 startActivity(intent)
                 finish()
             }
