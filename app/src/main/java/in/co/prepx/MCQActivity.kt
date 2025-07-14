@@ -39,6 +39,7 @@ class MCQActivity : AppCompatActivity() {
     private val selectedOptions = ArrayList<Int>()
     private val handler = android.os.Handler(android.os.Looper.getMainLooper())
     private lateinit var subject: String
+    private var delayedNextQuestionRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -233,7 +234,7 @@ class MCQActivity : AppCompatActivity() {
                 }
 
                 // Load next question after 5 seconds
-                handler.postDelayed({
+                delayedNextQuestionRunnable = Runnable {
                     if (currentQuestion < questions.size - 1) {
                         currentQuestion++
                         loadQuestion(currentQuestion)
@@ -252,7 +253,8 @@ class MCQActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                }, 5000) // 5000 milliseconds = 5 seconds
+                }
+                handler.postDelayed(delayedNextQuestionRunnable!!, 5000) // 5000 milliseconds = 5 seconds
             }
             option.setOnClickListener(clickListener)
             (option.parent as View).setOnClickListener { option.performClick() }
@@ -320,6 +322,8 @@ class MCQActivity : AppCompatActivity() {
     }
 
     private fun showReportQuestionDialog() {
+        handler.removeCallbacks(delayedNextQuestionRunnable!!) // Pause the timer
+
         val dialog = AlertDialog.Builder(this, R.style.AlertDialogTheme).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_report_question, null)
         dialog.setView(dialogView)
@@ -357,6 +361,8 @@ class MCQActivity : AppCompatActivity() {
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Report", null as android.content.DialogInterface.OnClickListener?) // Set null listener initially
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { dialogInterface, _ ->
             dialogInterface.dismiss()
+            // Resume the timer if it was paused
+            delayedNextQuestionRunnable?.let { handler.postDelayed(it, 5000) }
         }
         dialog.show()
 
@@ -394,6 +400,8 @@ class MCQActivity : AppCompatActivity() {
 
                 confirmationDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
                 dialog.dismiss() // Dismiss the report dialog only if an option is selected
+                // Resume the timer if it was paused
+                delayedNextQuestionRunnable?.let { handler.postDelayed(it, 5000) }
             }
         }
 
