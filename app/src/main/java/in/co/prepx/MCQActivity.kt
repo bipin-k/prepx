@@ -108,12 +108,15 @@ class MCQActivity : AppCompatActivity() {
         }
 
         btnExit.setOnClickListener {
-            AlertDialog.Builder(this)
+            val dialog = AlertDialog.Builder(this, R.style.AlertDialogTheme)
                 .setTitle("Exit Quiz")
                 .setMessage("Are you sure you want to quit?")
                 .setPositiveButton("Yes") { _, _ -> finish() }
                 .setNegativeButton("No", null)
                 .show()
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.primary))
         }
     }
 
